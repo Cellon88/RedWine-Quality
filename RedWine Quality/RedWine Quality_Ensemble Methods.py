@@ -59,7 +59,8 @@ sns.boxplot(x='quality',y='density', data = data, ax=ax8)
 
 sns.countplot(x='quality', data=data)
 ((sum(data['quality'] == 5) + sum(data['quality'] == 6)) / len(data['quality']))*100
-# 전체 Quality중 5와 6의 값이 전체의 82%를 차지한다. 사실상 (5이하)와 (6이상)구분의 이진 분류로 봐도 무방하다.
+# the values of 5 and 6 are 82% of the total quality
+# In fact, it can be viewed as a binary classification of (less than 5) and (more than 6).
 
 # Dividing Quality as bad(0), good(1), Excellent(2)
 # Bad quality is 3~4 / Good quality is 5~6 / Excellent quality is 7~8
@@ -353,102 +354,4 @@ acc =  metrics.accuracy_score(y_test, predictions)*100
 print(conf_matrix)
 print('\nAccuracy: %.2f %%\n' % acc)
 print(classification_report(y_test, y_pred))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-from matplotlib.colors import ListedColormap
-
-def plot_decision_regions(X, y, classifier, test_idx=None, resolution=0.02):
-
-    # setup marker generator and color map
-    markers = ('s', 'x', 'o', '^', 'v')
-    colors = ('red', 'blue', 'lightgreen', 'gray', 'cyan')
-    cmap = ListedColormap(colors[:len(np.unique(y))])
-
-    # plot the decision surface
-    x1_min, x1_max = X[:, 0].min() - 1, X[:, 0].max() + 1
-    x2_min, x2_max = X[:, 1].min() - 1, X[:, 1].max() + 1
-    xx1, xx2 = np.meshgrid(np.arange(x1_min, x1_max, resolution),
-                           np.arange(x2_min, x2_max, resolution))
-    Z = classifier.predict(np.array([xx1.ravel(), xx2.ravel()]).T)
-    Z = Z.reshape(xx1.shape)
-    plt.contourf(xx1, xx2, Z, alpha=0.4, cmap=cmap)
-    plt.xlim(xx1.min(), xx1.max())
-    plt.ylim(xx2.min(), xx2.max())
-
-    for idx, cl in enumerate(np.unique(y)):
-        plt.scatter(x=X[y == cl, 0], y=X[y == cl, 1],
-                    alpha=0.8, c=cmap(idx),
-                    marker=markers[idx], label=cl)
-
-
-
-plot_decision_regions(X_test, y_test, model)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
